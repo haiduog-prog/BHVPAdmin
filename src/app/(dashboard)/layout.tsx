@@ -1,5 +1,6 @@
-import { LayoutDashboard, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, LogOut } from 'lucide-react'
 import { SidebarNav } from '@/components/SidebarNav'
+import { MobileSidebar } from '@/components/MobileSidebar'
 
 export default function DashboardLayout({
   children,
@@ -8,7 +9,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="min-h-screen bg-slate-50 flex font-sans">
-      {/* Premium Sidebar */}
+      {/* Premium Sidebar (Desktop) */}
       <aside className="w-72 bg-white/80 backdrop-blur-xl border-r border-slate-200/60 hidden md:flex flex-col sticky top-0 h-screen shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-10">
         <div className="p-8">
           <div className="flex items-center gap-3">
@@ -39,13 +40,8 @@ export default function DashboardLayout({
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile Header */}
-        <header className="h-16 bg-white/80 backdrop-blur-md border-b border-slate-200/60 flex items-center px-6 md:hidden sticky top-0 z-20 shadow-sm">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mr-3">
-            <LayoutDashboard className="w-4 h-4 text-white" />
-          </div>
-          <span className="text-slate-800 font-bold">Signage Mgt</span>
-        </header>
+        {/* Mobile Sidebar & Header */}
+        <MobileSidebar />
         
         {/* Page Content */}
         <div className="flex-1 relative">
@@ -56,5 +52,3 @@ export default function DashboardLayout({
     </div>
   )
 }
-
-
