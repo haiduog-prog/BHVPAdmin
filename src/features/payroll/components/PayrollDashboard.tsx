@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ChevronLeft, ChevronRight, Clock, CalendarDays } from 'lucide-react'
-import { MonthlyAttendance, PayrollConfig, SalaryType } from '../types'
-import { Employee } from '@/features/employees/types'
+import { MonthlyAttendance, PayrollConfig, SalaryType } from '@/domain/payroll/entity'
+import { Employee } from '@/domain/employees/entity'
 import { MonthCalendar } from './MonthCalendar'
 import { PayrollSummary } from './PayrollSummary'
 

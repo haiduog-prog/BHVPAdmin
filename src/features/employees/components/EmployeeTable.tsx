@@ -1,4 +1,4 @@
-import { Employee } from '../types'
+import { Employee } from '@/domain/employees/entity'
 import { MoreHorizontal, User } from 'lucide-react'
 
 interface EmployeeTableProps {
