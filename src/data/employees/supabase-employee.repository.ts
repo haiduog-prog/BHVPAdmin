@@ -64,8 +64,9 @@ export class SupabaseEmployeeRepository implements IEmployeeRepository {
       }
 
       return (data || []).map(toEmployeeEntity)
-    } catch (err: any) {
-      console.warn('Supabase client error (Employees):', err?.message || 'Unknown error')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      console.warn('Supabase client error (Employees):', message)
       return []
     }
   }

@@ -10,9 +10,11 @@ export function MobileSidebar() {
   const pathname = usePathname()
 
   // Đóng menu khi người dùng bấm vào 1 link
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname)
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname)
     setIsOpen(false)
-  }, [pathname])
+  }
 
   // Chặn cuộn trang web khi mở menu
   useEffect(() => {

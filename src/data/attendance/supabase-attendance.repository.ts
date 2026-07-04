@@ -60,8 +60,9 @@ export class SupabaseAttendanceRepository implements IAttendanceRepository {
       }
 
       return (logs || []).map(toRawAttendanceLog)
-    } catch (err: any) {
-      console.warn('Supabase client error (Attendance):', err?.message || 'Unknown error')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      console.warn('Supabase client error (Attendance):', message)
       return []
     }
   }

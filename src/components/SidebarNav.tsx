@@ -1,6 +1,6 @@
 'use client'
 
-import { Users, CreditCard, ShoppingBag, CalendarDays, Banknote } from 'lucide-react'
+import { Users, CreditCard, ShoppingBag, CalendarDays, Banknote, Briefcase } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -22,6 +22,11 @@ export function SidebarNav() {
       name: 'Bảng lương',
       href: '/payroll',
       icon: Banknote,
+    },
+    {
+      name: 'Khách hàng',
+      href: '/customers',
+      icon: Briefcase,
     },
     {
       name: 'Đơn hàng',

@@ -3,10 +3,15 @@
 import { RawPayrollLog } from '@/domain/payroll/entity'
 
 /** Chuyển đổi raw attendance_logs row → RawPayrollLog cho use case */
-export function toRawPayrollLog(row: any): RawPayrollLog {
+export function toRawPayrollLog(row: unknown): RawPayrollLog {
+  const r = row as {
+    id: string
+    scan_time: string
+    status: string
+  }
   return {
-    id: row.id,
-    scanTime: new Date(row.scan_time),
-    status: row.status,
+    id: r.id,
+    scanTime: new Date(r.scan_time),
+    status: r.status as 'IN' | 'OUT',
   }
 }

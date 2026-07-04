@@ -31,8 +31,9 @@ export class AddEmployeeUseCase {
         department: data.department.trim(),
       })
       return { success: true, employee }
-    } catch (err: any) {
-      return { success: false, error: err?.message || 'Lỗi không xác định khi thêm nhân viên.' }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Lỗi không xác định khi thêm nhân viên.'
+      return { success: false, error: message }
     }
   }
 }

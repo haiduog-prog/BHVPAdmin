@@ -17,7 +17,7 @@ export function MonthCalendar({ year, month, workDays }: MonthCalendarProps) {
   workDays.forEach(wd => workDayMap.set(wd.date, wd))
 
   const daysInMonth = new Date(year, month, 0).getDate()
-  let startDow = (new Date(year, month - 1, 1).getDay() + 6) % 7
+  const startDow = (new Date(year, month - 1, 1).getDay() + 6) % 7
 
   const dayHeaders = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']
   const today = new Date().toISOString().split('T')[0]
