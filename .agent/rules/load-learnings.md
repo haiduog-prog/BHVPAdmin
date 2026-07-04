@@ -4,6 +4,7 @@ globs: "**/*.{kt,java,xml,gradle,kts}"
 trigger: always_on
 ---
 
+
 # Load Learnings Rule
 
 ## Khi nào áp dụng
@@ -35,3 +36,4 @@ Rule này áp dụng **tự động** mỗi khi bắt đầu một session hoặ
 - Không đọc lại nếu đã đọc trong cùng một session.
 - **KHÔNG đọc tất cả file** — chỉ đọc file có tên liên quan trực tiếp đến task hiện tại.
 - Nếu task liên quan đến nhiều feature → đọc nhiều file tương ứng.
+

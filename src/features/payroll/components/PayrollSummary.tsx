@@ -1,6 +1,7 @@
 'use client'
 
-import { MonthlyAttendance, PayrollConfig } from '../types'
+import { MonthlyAttendance, PayrollConfig } from '@/domain/payroll/entity'
+import { CalculateSalaryUseCase } from '@/domain/payroll/use-cases/calculate-salary'
 import { CalendarCheck, Clock, Banknote, TrendingUp } from 'lucide-react'
 
 interface PayrollSummaryProps {
@@ -8,24 +9,14 @@ interface PayrollSummaryProps {
   config: PayrollConfig
 }
 
+const calculateSalary = new CalculateSalaryUseCase()
+
 export function PayrollSummary({ attendance, config }: PayrollSummaryProps) {
   const totalHours = Math.floor(attendance.totalMinutes / 60)
   const totalRemainingMins = attendance.totalMinutes % 60
 
-  // Tính lương
-  let salary = 0
-  let salaryLabel = ''
-
-  if (config.salaryType === 'daily') {
-    salary = attendance.totalWorkDays * config.dailyRate
-    salaryLabel = `${attendance.totalWorkDays} ngày × ${config.dailyRate.toLocaleString('vi-VN')} ₫`
-  } else {
-    // Tính theo giờ: làm tròn đến 0.5h
-    const totalHoursDecimal = attendance.totalMinutes / 60
-    const roundedHours = Math.round(totalHoursDecimal * 2) / 2 // Làm tròn 0.5h
-    salary = roundedHours * config.hourlyRate
-    salaryLabel = `${roundedHours}h × ${config.hourlyRate.toLocaleString('vi-VN')} ₫`
-  }
+  // Tính lương qua Use Case — logic nằm trong domain layer
+  const { salary, label: salaryLabel } = calculateSalary.execute(attendance, config)
 
   const cards = [
     {

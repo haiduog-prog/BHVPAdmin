@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
-import { getEmployees } from '@/features/employees/services'
-import { getMonthlyAttendance } from '@/features/payroll/services'
+import { container } from '@/di/container'
 import { PayrollDashboard } from '@/features/payroll/components/PayrollDashboard'
 import { Banknote } from 'lucide-react'
 
@@ -20,13 +19,15 @@ export default async function PayrollPage({ searchParams }: PayrollPageProps) {
   const selectedEmployeeId = params.employee || ''
 
   // Lấy danh sách nhân viên
-  const employees = await getEmployees()
+  const employees = await container.getEmployeesUseCase().execute()
 
   // Lấy chấm công tháng (nếu đã chọn nhân viên)
   let attendance = null
   if (selectedEmployeeId) {
     try {
-      attendance = await getMonthlyAttendance(selectedEmployeeId, year, month)
+      attendance = await container
+        .getMonthlyAttendanceUseCase()
+        .execute(selectedEmployeeId, year, month)
     } catch (error) {
       console.error('Lỗi khi lấy dữ liệu chấm công tháng:', error)
     }

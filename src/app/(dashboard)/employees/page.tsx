@@ -1,18 +1,20 @@
 import { Suspense } from 'react'
-import { getEmployees } from '@/features/employees/services'
+import { container } from '@/di/container'
 import { EmployeeTable } from '@/features/employees/components/EmployeeTable'
 import { AddEmployeeModal } from '@/features/employees/components/AddEmployeeModal'
 import { Users } from 'lucide-react'
+import { Employee } from '@/domain/employees/entity'
 
 export const metadata = {
   title: 'Danh sách nhân viên | Quản lý Biển hiệu',
 }
 
 export default async function EmployeesPage() {
-  let employees = []
+  let employees: Employee[] = []
   
   try {
-      employees = await getEmployees()
+      const useCase = container.getEmployeesUseCase()
+      employees = await useCase.execute()
   } catch (error) {
       console.error("Lỗi khi lấy danh sách nhân viên:", error)
   }

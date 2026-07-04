@@ -4,6 +4,7 @@ globs: "**/*.{html,css,js,jsx,tsx,ts,vue,svelte,astro}"
 trigger: always_on
 ---
 
+
 # Web Design Backbone Rule
 
 > **LUẬT KHÔNG THỂ THƯƠNG LƯỢNG.** Vi phạm bất kỳ mục nào → sản phẩm **FAILED**.
@@ -125,3 +126,4 @@ trigger: always_on
 - [ ] Mobile 375px OK? Tablet 768px OK? Desktop 1440px OK? Không scroll ngang?
 - [ ] Semantic HTML? Meta tags đầy đủ? Accessibility (alt, label, contrast, focus)?
 - [ ] Font preload + swap? Lazy loading? `prefers-reduced-motion`?
+

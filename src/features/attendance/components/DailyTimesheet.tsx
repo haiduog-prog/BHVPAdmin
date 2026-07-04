@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, Fragment } from 'react'
-import { DailyTimesheetRecord } from '../types'
+import { DailyTimesheetRecord } from '@/domain/attendance/entity'
 import { Clock, ChevronDown, ChevronUp, ScanFace, ArrowRightLeft } from 'lucide-react'
 
 interface DailyTimesheetProps {

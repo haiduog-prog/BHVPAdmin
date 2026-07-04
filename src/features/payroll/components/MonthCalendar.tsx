@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { WorkDay } from '../types'
+import { WorkDay } from '@/domain/payroll/entity'
 import { Clock, X, ScanFace } from 'lucide-react'
 
 interface MonthCalendarProps {

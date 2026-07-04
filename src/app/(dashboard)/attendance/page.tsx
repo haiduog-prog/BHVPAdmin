@@ -1,8 +1,9 @@
 import { Suspense } from 'react'
-import { calculateDailyTimesheet } from '@/features/attendance/actions'
+import { container } from '@/di/container'
 import { DailyTimesheet } from '@/features/attendance/components/DailyTimesheet'
 import { DatePicker } from '@/features/attendance/components/DatePicker'
 import { CalendarDays } from 'lucide-react'
+import { DailyTimesheetRecord } from '@/domain/attendance/entity'
 
 export const metadata = {
   title: 'Bảng chấm công | Quản lý Biển hiệu',
@@ -17,10 +18,11 @@ export default async function AttendancePage({ searchParams }: AttendancePagePro
   const todayDate = new Date().toISOString().split('T')[0]
   const selectedDate = params.date || todayDate
 
-  let timesheetRecords = []
+  let timesheetRecords: DailyTimesheetRecord[] = []
   
   try {
-      timesheetRecords = await calculateDailyTimesheet(selectedDate)
+      const useCase = container.getDailyTimesheetUseCase()
+      timesheetRecords = await useCase.execute(selectedDate)
   } catch (error) {
       console.error("Lỗi khi lấy dữ liệu chấm công:", error)
   }

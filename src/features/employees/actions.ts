@@ -1,6 +1,9 @@
 'use server'
 
-import { createClient } from '@/lib/supabase/server'
+// ─── Server Actions: Employee (Thin wrapper) ───────────────────────
+// Chỉ chịu trách nhiệm: parse FormData → gọi Use Case → revalidate cache
+
+import { container } from '@/di/container'
 import { revalidatePath } from 'next/cache'
 import { revalidateTag } from 'next/cache'
 
@@ -9,30 +12,15 @@ export async function addEmployee(formData: FormData) {
   const role = formData.get('role') as string
   const department = formData.get('department') as string
 
-  if (!name || !role || !department) {
-    return { error: 'Vui lòng điền đầy đủ thông tin.' }
+  const useCase = container.addEmployeeUseCase()
+  const result = await useCase.execute({ name, role, department })
+
+  if (result.success) {
+    revalidateTag('employees', { expire: 0 }) // Xoá cache danh sách nhân viên
+    revalidatePath('/employees')
   }
 
-  const supabase = await createClient()
-
-  const { error } = await supabase
-    .from('employees')
-    .insert([
-      {
-        name,
-        role,
-        department,
-        is_active: true
-        // face_vector will be left null
-      }
-    ])
-
-  if (error) {
-    console.error('Lỗi khi thêm nhân viên:', error)
-    return { error: error.message }
-  }
-
-  revalidateTag('employees') // Xoá cache danh sách nhân viên
-  revalidatePath('/employees')
-  return { success: true }
+  return result.success
+    ? { success: true }
+    : { error: result.error || 'Lỗi không xác định' }
 }
